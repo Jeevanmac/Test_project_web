@@ -29,6 +29,10 @@ async function loadComponents() {
         if (user.isAdmin) {
           const adminLink = document.getElementById("nav-admin");
           if (adminLink) adminLink.classList.remove("hidden");
+          
+          // Hide Dashboard for admins to reduce redundancy
+          const dashboardLink = document.getElementById("nav-dashboard");
+          if (dashboardLink) dashboardLink.classList.add("hidden");
         }
       }
     }
