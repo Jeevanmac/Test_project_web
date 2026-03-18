@@ -1,0 +1,30 @@
+/* Main Styles extracted from code.html */
+body {
+    font-family: 'Inter', sans-serif;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.no-scrollbar::-webkit-scrollbar {
+    display: none;
+}
+.no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+.glass-effect {
+    background: rgba(10, 10, 20, 0.7);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+/* Base Light Mode (Fallback) */
+body {
+    background: white;
+    color: black;
+}
+
+/* Dark Mode Extracted (Fallback) */
+body.dark {
+    background: #121212;
+    color: white;
+}

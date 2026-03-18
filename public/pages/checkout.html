@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html class="dark" lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>Checkout - ProjectMarket</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" rel="stylesheet"/>
+    <script id="tailwind-config">
+      tailwind.config = { darkMode: "class", theme: { extend: { colors: { "primary": "#200df2", "background-light": "#f6f5f8", "background-dark": "#111022" }, fontFamily: { "display": ["Inter", "sans-serif"] } } } }
+    </script>
+    <link href="/styles/main.css" rel="stylesheet" />
+</head>
+<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 font-display transition-colors duration-300 flex flex-col min-h-screen">
+    <div id="navbar-container"></div>
+    <main class="flex-grow max-w-3xl mx-auto px-4 py-32 text-center flex flex-col items-center justify-center">
+        <h1 class="text-4xl md:text-5xl font-black mb-6">Processing Checkout...</h1>
+        <p class="text-slate-500 mb-8 text-lg">Please complete your payment securely via the Razorpay popup in your cart. If you arrived here by error, you can return to your cart.</p>
+        <a href="cart.html" class="bg-primary text-white px-8 py-4 rounded-xl font-bold hover:-translate-y-1 transition-transform">Return to Cart</a>
+    </main>
+    <div id="footer-container"></div>
+    <script src="/scripts/theme.js"></script>
+    <script src="/scripts/cart.js"></script>
+    <script src="/scripts/main.js"></script>
+</body>
+</html>

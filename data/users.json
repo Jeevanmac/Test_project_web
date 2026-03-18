@@ -1,0 +1,17 @@
+[
+  {
+    "id": "admin_001",
+    "name": "Super Admin",
+    "email": "admin@projectmarket.com",
+    "password": "admin",
+    "isAdmin": true,
+    "projects": []
+  },
+  {
+    "id": "1773859291483",
+    "name": "jeevan",
+    "email": "jeevanmac123@gmail.com",
+    "password": "123456",
+    "projects": []
+  }
+]

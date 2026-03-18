@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html class="dark" lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>Billing & Subscription | ProjectMarket</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" rel="stylesheet"/>
+    <script id="tailwind-config">
+        tailwind.config = { darkMode: "class", theme: { extend: { colors: { "primary": "#200df2", "background-light": "#f6f5f8", "background-dark": "#111022" }, fontFamily: { "display": ["Inter"] }, borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"} } } }
+    </script>
+    <link rel="stylesheet" href="/styles/main.css" />
+    <style>.active-sidebar { background-color: rgba(32,13,242,0.1); color: #200df2; border-left: 4px solid #200df2; }</style>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display text-slate-900 dark:text-slate-100 antialiased min-h-screen flex flex-col">
+    <!-- Global Top Nav -->
+    <div id="navbar-container" class="sticky top-0 z-50 shadow-sm"></div>
+
+    <div class="flex flex-1 items-stretch">
+        <!-- Sidebar Navigation -->
+        <aside class="w-64 border-r border-slate-200 dark:border-slate-800 bg-white dark:bg-background-dark flex flex-col p-4 sticky top-[80px] h-[calc(100vh-80px)] hidden lg:flex">
+            <h1 class="text-slate-900 dark:text-white text-base font-bold mb-4 px-3">Account Area</h1>
+            <nav class="flex flex-col gap-1">
+                <a class="flex items-center gap-3 px-3 py-2 text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg" href="/pages/dashboard.html">
+                    <span class="material-symbols-outlined">dashboard</span>
+                    <p class="text-sm font-medium">Dashboard</p>
+                </a>
+                <a class="flex items-center gap-3 px-3 py-2 text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg" href="/pages/order-history.html">
+                    <span class="material-symbols-outlined">history</span>
+                    <p class="text-sm">Order History</p>
+                </a>
+                <a class="flex items-center gap-3 px-3 py-2 active-sidebar rounded-lg font-bold" href="/pages/billing.html">
+                    <span class="material-symbols-outlined text-[22px] fill-[1]">credit_card</span>
+                    <span class="text-sm">Earnings & Billing</span>
+                </a>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="flex-1 flex flex-col p-8 overflow-y-auto w-full max-w-6xl mx-auto">
+            <div class="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-8">
+                <div>
+                    <h3 class="text-3xl font-black tracking-tight mb-2">Plan & Billing</h3>
+                    <p class="text-slate-500 dark:text-slate-400">Manage your subscription, billing methods, and invoices.</p>
+                </div>
+                <button class="bg-primary hover:bg-primary/90 text-white px-6 py-2.5 rounded-lg font-bold text-sm shadow-lg shadow-primary/20 transition-all">
+                    Upgrade Plan
+                </button>
+            </div>
+
+            <!-- Stats Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
+                <div class="bg-white dark:bg-slate-800/50 p-6 rounded-xl border border-slate-200 dark:border-slate-800">
+                    <p id="stat1-label" class="text-sm font-medium text-slate-500 mb-1">Current Plan</p>
+                    <div class="flex justify-between items-center"><h4 id="stat1-value" class="text-2xl font-bold">Pro Account</h4><span id="plan-status" class="text-green-500 bg-green-500/10 px-2 py-1 rounded text-xs">Active</span></div>
+                </div>
+                <div class="bg-white dark:bg-slate-800/50 p-6 rounded-xl border border-slate-200 dark:border-slate-800">
+                    <p id="stat2-label" class="text-sm font-medium text-slate-500 mb-1">Next Renewal</p>
+                    <h4 id="stat2-value" class="text-2xl font-bold">Oct 12, 2024</h4>
+                </div>
+                <div class="bg-white dark:bg-slate-800/50 p-6 rounded-xl border border-slate-200 dark:border-slate-800">
+                    <p id="stat3-label" class="text-sm font-medium text-slate-500 mb-1">Monthly Spend</p>
+                    <h4 id="stat3-value" class="text-2xl font-bold"><span class="text-2xl">$49.00</span> <span class="text-sm text-slate-400">/mo</span></h4>
+                </div>
+            </div>
+
+            <!-- Layout columns for Payment Methods & Invoices -->
+            <div id="dynamic-content-area" class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                <div class="flex flex-col gap-6">
+                    <h4 class="text-xl font-bold flex items-center gap-2">Payment Methods</h4>
+                    <div class="bg-white dark:bg-slate-800/30 p-4 rounded-xl border border-slate-200 dark:border-slate-800 flex items-center justify-between">
+                        <div class="flex items-center gap-4">
+                            <span class="material-symbols-outlined text-slate-400">credit_card</span>
+                            <div>
+                                <p class="text-sm font-bold">Visa ending in 4242</p>
+                                <p class="text-xs text-slate-500">Expires 12/26 • <span class="text-primary font-medium">Default</span></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex flex-col gap-6">
+                    <h4 class="text-xl font-bold flex items-center gap-2">Recent Invoices</h4>
+                    <div class="bg-white dark:bg-slate-800/30 rounded-xl border border-slate-200 dark:border-slate-800 overflow-hidden">
+                        <table class="w-full text-left">
+                            <thead class="bg-slate-50 dark:bg-slate-800/50">
+                                <tr>
+                                    <th class="px-4 py-3 text-xs font-bold text-slate-500 uppercase">Date</th>
+                                    <th class="px-4 py-3 text-xs font-bold text-slate-500 uppercase">Amount</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-slate-100 dark:divide-slate-800">
+                                <tr>
+                                    <td class="px-4 py-4 text-sm font-medium">Sep 12, 2024</td>
+                                    <td class="px-4 py-4 text-sm">$49.00</td>
+                                </tr>
+                                <tr>
+                                    <td class="px-4 py-4 text-sm font-medium">Aug 12, 2024</td>
+                                    <td class="px-4 py-4 text-sm">$49.00</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Ensure footer sits correctly globally -->
+    <div id="footer-container"></div>
+    <script src="/scripts/theme.js"></script>
+    <script src="/scripts/cart.js"></script>
+    <script src="/scripts/main.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const user = JSON.parse(localStorage.getItem('user'));
+            if (!user) {
+                window.location.href = '/pages/login.html';
+                return;
+            }
+
+            if (user.isAdmin) {
+                // Morph to Admin Stats Mode
+                document.querySelector('h3.text-3xl').textContent = 'Admin Earnings & Stats';
+                document.querySelector('p.text-slate-500').textContent = 'Real-time overview of marketplace performance.';
+                
+                document.getElementById('stat1-label').textContent = 'Total Monthly Revenue';
+                document.getElementById('stat1-value').textContent = '₹124,500';
+                document.getElementById('plan-status').textContent = '+14% MoM';
+
+                document.getElementById('stat2-label').textContent = 'Total Product Orders';
+                document.getElementById('stat2-value').textContent = '384';
+
+                document.getElementById('stat3-label').textContent = 'Active Platform Users';
+                document.getElementById('stat3-value').innerHTML = '1,205 <span class="text-sm text-green-500">+42 this week</span>';
+
+                // Inject Upload Project Form
+                document.getElementById('dynamic-content-area').innerHTML = `
+                    <div class="col-span-1 lg:col-span-2 bg-white dark:bg-slate-800 rounded-3xl p-8 border border-slate-200 dark:border-slate-700 shadow-xl">
+                        <h2 class="text-2xl font-bold mb-6 flex items-center gap-3"><span class="material-symbols-outlined text-primary text-3xl">add_circle</span> Add New Marketplace Item</h2>
+                        <form id="uploadForm" class="space-y-6">
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                <div><label class="block text-sm font-bold text-slate-700 dark:text-slate-300 mb-2">Project Title</label><input type="text" id="title" required class="w-full bg-slate-50 dark:bg-slate-900 border-none ring-1 ring-slate-200 dark:ring-slate-700 rounded-xl px-4 py-3 focus:ring-2 focus:ring-primary outline-none transition-all"></div>
+                                <div>
+                                    <label class="block text-sm font-bold text-slate-700 dark:text-slate-300 mb-2">Category</label>
+                                    <select id="category" class="w-full bg-slate-50 dark:bg-slate-900 border-none ring-1 ring-slate-200 dark:ring-slate-700 rounded-xl px-4 py-3 focus:ring-2 focus:ring-primary outline-none transition-all">
+                                        <option value="web">Web App</option><option value="mobile">Mobile</option><option value="ecommerce">E-commerce</option><option value="saas">SaaS</option><option value="other">Other</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                <div><label class="block text-sm font-bold text-slate-700 dark:text-slate-300 mb-2">Selling Price (₹)</label><input type="number" id="price" required class="w-full bg-slate-50 dark:bg-slate-900 border-none ring-1 ring-slate-200 dark:ring-slate-700 rounded-xl px-4 py-3 focus:ring-2 focus:ring-primary outline-none transition-all"></div>
+                                <div><label class="block text-sm font-bold text-slate-700 dark:text-slate-300 mb-2">Original Price (₹)</label><input type="number" id="oldPrice" class="w-full bg-slate-50 dark:bg-slate-900 border-none ring-1 ring-slate-200 dark:ring-slate-700 rounded-xl px-4 py-3 focus:ring-2 focus:ring-primary outline-none transition-all"></div>
+                            </div>
+                            <div><label class="block text-sm font-bold text-slate-700 dark:text-slate-300 mb-2">Tech Stack</label><input type="text" id="tech" class="w-full bg-slate-50 dark:bg-slate-900 border-none ring-1 ring-slate-200 dark:ring-slate-700 rounded-xl px-4 py-3 focus:ring-2 focus:ring-primary outline-none transition-all"></div>
+                            <div><label class="block text-sm font-bold text-slate-700 dark:text-slate-300 mb-2">Description</label><textarea id="desc" rows="4" required class="w-full bg-slate-50 dark:bg-slate-900 border-none ring-1 ring-slate-200 dark:ring-slate-700 rounded-xl px-4 py-3 focus:ring-2 focus:ring-primary outline-none transition-all"></textarea></div>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 bg-slate-50 dark:bg-slate-900/50 p-6 rounded-2xl border border-slate-200 dark:border-slate-700 border-dashed">
+                                <div><label class="block text-sm font-bold text-slate-700 dark:text-slate-300 mb-2">Cover Image</label><input type="file" id="imageFile" accept="image/*" class="w-full text-sm text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-primary/10 file:text-primary hover:file:bg-primary/20 transition-all cursor-pointer"></div>
+                                <div><label class="block text-sm font-bold text-slate-700 dark:text-slate-300 mb-2">Deliverable ZIP File</label><input type="file" id="zipFile" accept=".zip" required class="w-full text-sm text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-primary/10 file:text-primary hover:file:bg-primary/20 transition-all cursor-pointer"></div>
+                            </div>
+                            <div id="statusMessage" class="hidden text-sm font-bold p-4 rounded-xl mt-4"></div>
+                            <button type="submit" id="submitBtn" class="w-full bg-primary text-white font-bold text-lg py-4 rounded-xl hover:bg-primary/90 transition-all shadow-lg mt-6">Publish Item to Store</button>
+                        </form>
+                    </div>
+                `;
+
+                // Re-bind form logic
+                document.getElementById('uploadForm').addEventListener('submit', async (e) => {
+                    e.preventDefault();
+                    const submitBtn = document.getElementById('submitBtn');
+                    const statusMsg = document.getElementById('statusMessage');
+                    submitBtn.disabled = true;
+                    submitBtn.innerHTML = 'Uploading...';
+                    
+                    const formData = new FormData();
+                    formData.append('title', document.getElementById('title').value);
+                    formData.append('category', document.getElementById('category').value);
+                    formData.append('price', document.getElementById('price').value);
+                    formData.append('oldPrice', document.getElementById('oldPrice').value);
+                    formData.append('tech', document.getElementById('tech').value);
+                    formData.append('desc', document.getElementById('desc').value);
+                    
+                    const imageFile = document.getElementById('imageFile').files[0];
+                    if(imageFile) formData.append('imageFile', imageFile);
+                    
+                    const zipFile = document.getElementById('zipFile').files[0];
+                    if(zipFile) formData.append('zipFile', zipFile);
+
+                    try {
+                        const response = await fetch('http://localhost:5000/api/admin/project', { method: 'POST', body: formData });
+                        const data = await response.json();
+                        if (data.success) {
+                            statusMsg.className = 'text-sm font-bold p-4 rounded-xl bg-green-500/10 text-green-500 block mt-4';
+                            statusMsg.innerText = 'Item successfully added to marketplace!';
+                            document.getElementById('uploadForm').reset();
+                        } else {
+                            throw new Error(data.error || 'Upload failed');
+                        }
+                    } catch (error) {
+                        statusMsg.className = 'text-sm font-bold p-4 rounded-xl bg-red-500/10 text-red-500 block mt-4';
+                        statusMsg.innerText = error.message;
+                    } finally {
+                        submitBtn.disabled = false;
+                        submitBtn.innerHTML = 'Publish Item to Store';
+                    }
+                });
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html class="dark" lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>Order Confirmation | ProjectMarket</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" rel="stylesheet"/>
+    <script id="tailwind-config">
+        tailwind.config = { darkMode: "class", theme: { extend: { colors: { "primary": "#200df2", "background-light": "#f6f5f8", "background-dark": "#111022" }, fontFamily: { "display": ["Inter"] }, borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"} } } }
+    </script>
+    <link rel="stylesheet" href="/styles/main.css" />
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display text-slate-900 dark:text-slate-100 min-h-screen flex flex-col">
+    <!-- Global Header -->
+    <div id="navbar-container" class="sticky top-0 z-50 shadow-sm w-full"></div>
+
+    <main class="flex flex-1 justify-center py-12 px-6 flex-grow">
+        <div class="max-w-4xl w-full flex flex-col gap-8">
+            <!-- Success Section -->
+            <section class="flex flex-col items-center text-center py-10">
+                <div class="mb-6 flex items-center justify-center size-24 bg-primary/10 rounded-full border-4 border-primary/20 text-primary">
+                    <span class="material-symbols-outlined text-6xl font-bold">check_circle</span>
+                </div>
+                <h1 class="text-slate-900 dark:text-white text-4xl md:text-5xl font-black leading-tight tracking-tight mb-4">
+                    Thank You for Your Order!
+                </h1>
+                <p class="text-slate-600 dark:text-slate-400 text-lg max-w-xl">
+                    Your transaction was successful. We've sent a confirmation email to your inbox. Your assets are now ready for use.
+                </p>
+            </section>
+
+            <!-- Order Info Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="flex flex-col gap-2 rounded-xl p-6 bg-white dark:bg-slate-900/50 border border-slate-200 dark:border-primary/20 shadow-sm">
+                    <div class="flex items-center gap-2 text-primary">
+                        <span class="material-symbols-outlined text-sm">confirmation_number</span>
+                        <p class="text-sm font-medium uppercase tracking-wider">Order Number</p>
+                    </div>
+                    <p class="text-slate-900 dark:text-white text-2xl font-bold">#TRX-992841002</p>
+                </div>
+                <div class="flex flex-col gap-2 rounded-xl p-6 bg-white dark:bg-slate-900/50 border border-slate-200 dark:border-primary/20 shadow-sm">
+                    <div class="flex items-center gap-2 text-primary">
+                        <span class="material-symbols-outlined text-sm">calendar_today</span>
+                        <p class="text-sm font-medium uppercase tracking-wider">Date Purchased</p>
+                    </div>
+                    <p class="text-slate-900 dark:text-white text-2xl font-bold" id="order-date">Today</p>
+                </div>
+            </div>
+
+            <!-- Order Summary -->
+            <section class="rounded-xl overflow-hidden border border-slate-200 dark:border-primary/20 bg-white dark:bg-slate-900/40">
+                <div class="px-8 py-6 border-b border-slate-200 dark:border-primary/20 flex justify-between items-center">
+                    <h2 class="text-slate-900 dark:text-white text-xl font-bold">Order Summary</h2>
+                </div>
+                <div class="divide-y divide-slate-200 dark:divide-primary/10">
+                    <div class="flex items-center justify-between p-8 hover:bg-slate-50 dark:hover:bg-primary/5 transition-colors">
+                        <div class="flex gap-4 items-center">
+                            <div class="w-16 h-16 rounded-lg bg-primary/20 flex items-center justify-center overflow-hidden">
+                                <span class="material-symbols-outlined text-3xl text-primary">shopping_bag</span>
+                            </div>
+                            <div>
+                                <h3 class="font-bold text-slate-900 dark:text-white text-lg leading-tight">Digital Downloads</h3>
+                                <p class="text-slate-500 dark:text-slate-400 text-sm">Full Access</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Actions -->
+            <div class="flex flex-col sm:flex-row gap-4 justify-center py-6">
+                <button class="flex items-center justify-center gap-2 px-8 py-4 bg-primary text-white font-bold rounded-xl hover:bg-primary/90 transition-all shadow-lg shadow-primary/25 min-w-[220px]" onclick="triggerDownload()">
+                    <span class="material-symbols-outlined">download</span> Download Assets
+                </button>
+                <button class="flex items-center justify-center gap-2 px-8 py-4 bg-white dark:bg-slate-800 text-slate-900 dark:text-white font-bold rounded-xl border border-slate-200 dark:border-primary/30 hover:bg-slate-50 dark:hover:bg-slate-700 transition-all min-w-[220px]" onclick="window.location.href='/pages/dashboard.html'">
+                    <span class="material-symbols-outlined">dashboard</span> Go to Dashboard
+                </button>
+            </div>
+
+            <!-- Footer Help -->
+            <div class="text-center pt-8 border-t border-slate-200 dark:border-primary/10">
+                <p class="text-slate-500 dark:text-slate-500 text-sm">
+                    Having trouble with your download? <a class="text-primary hover:underline font-medium" href="/pages/contact.html">Contact Support</a>
+                </p>
+            </div>
+        </div>
+    </main>
+
+    <!-- Global Footer -->
+    <div id="footer-container" class="w-full"></div>
+    <script src="/scripts/theme.js"></script>
+    <script src="/scripts/cart.js"></script>
+    <script src="/scripts/main.js"></script>
+    <script>
+        const urlParams = new URLSearchParams(window.location.search);
+        const projectId = urlParams.get('projectId');
+        
+        document.getElementById('order-date').textContent = new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' });
+        
+        // Clear cart on successful order
+        localStorage.removeItem('projectMarketCart');
+
+        async function triggerDownload() {
+            if (projectId) {
+                window.location.href = `http://localhost:5000/api/download?token=valid_token&projectId=${projectId}`;
+            } else {
+                window.location.href = '/pages/dashboard.html';
+            }
+        }
+    </script>
+</body>
+</html>

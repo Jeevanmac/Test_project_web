@@ -1,0 +1,70 @@
+[
+  {
+    "id": "p1",
+    "title": "Quantum Analytics",
+    "reviews": "4.8 (215 reviews)",
+    "oldPrice": "89.00",
+    "price": 49,
+    "tech": [
+      "React 18",
+      "Tailwind",
+      "D3.js"
+    ],
+    "category": "web",
+    "desc": "A complete data visualization toolkit for modern SaaS platforms with real-time tracking.",
+    "image": "https://lh3.googleusercontent.com/aida-public/AB6AXuB7NNR_v_5d_QXL-ZNoxocZOjDPyLv0QPiq2swISI5zpQTsxpqf8gI_Ahjo8RgQtDV6eSGf_dNw1dKrsBC_jXlh6E38FEbJGUcpyPBfdwoWB3HCj4az_l1dOhGZJasyMCL8jmGwl-Q3e5Kgrs4-FDgDKWeLkbyfITMV4QMg62lj-4MKa08n9pnM5tN0YOJkimABPMJpHXZ2uadVDei7aM07QrEb3bWyndMmZKMl8q6dkb_3p2lxHGZttYLAK-MTfySVfLIzzwDPo0-R",
+    "zipFilename": "test_project_1.zip"
+  },
+  {
+    "id": "p2",
+    "title": "FitFlow Pro UI",
+    "reviews": "4.9 (84 reviews)",
+    "oldPrice": "49.00",
+    "price": 29,
+    "tech": [
+      "Flutter",
+      "Firebase",
+      "Swift"
+    ],
+    "category": "mobile",
+    "desc": "50+ premium mobile screens for fitness tracking, wellness, and social workout features.",
+    "image": "https://lh3.googleusercontent.com/aida-public/AB6AXuBpo9G_RNoi0qViQAp02LEvA4VyNl7wCMf5qkerB5Y7_-r4FPk7PDkmqSF-jBKGG23UBccPlvb59zP9Vg9sSxpqPy3sUz886bb41mDgvxTMuoWHwJ_fzTNhYZu90c-zMHMHZ8BM4HDtam-E7R5FJ7b_pUCJEOwrm53u40gLipkR1oP6faIGaEP_kZeap_Q2EkvjG1hDIB64n3xlqSCYfP3FA8gTdThz4vEL4-jsk4r3FxY9RVL2ntVHsHz7uPmylolNHcG6nI5V1K0j",
+    "zipFilename": "test_project_2.zip"
+  },
+  {
+    "id": "p3",
+    "title": "EcoStore Template",
+    "reviews": "4.9 (128 reviews)",
+    "oldPrice": "129.00",
+    "price": 89,
+    "tech": [
+      "React 18",
+      "Node.js",
+      "Tailwind CSS"
+    ],
+    "category": "ecommerce",
+    "desc": "Full-stack ecommerce solution built with modern technologies. This kit includes everything you need to launch a high-performance online store with SEO out of the box.",
+    "image": "https://lh3.googleusercontent.com/aida-public/AB6AXuAU2HG-1mEBeXWqU3wqmNkp41l9ZU_vOdWgB1985iE0gLFD-X10rmaeBMGQHAt3gco62AEThWUZo25lqe3B_3FqZTltVfaN8t-I2bNTZiU2iCuuy-t4l5ew5N7gg5RiuVWf5vLIYNAsoTqd27Hi5cB6FoVGOf0u9kx7cltl2WMwSUATZdGde1uqSWsr_X9d4mKKWMbm8puvl3-lKSsFj2xFEP8ikE6UhCYmr-f8NNwRmlumCVwgsTaKPU3Hv3YTXMS2-T_AUuzMC283",
+    "zipFilename": "test_project_3.zip"
+  },
+  {
+    "id": "proj_1773865049318",
+    "title": "E-commerce Starter Kit",
+    "reviews": "0.0 (0 reviews)",
+    "oldPrice": "5000",
+    "price": 12000,
+    "tech": [
+      "React 18",
+      "Node.js",
+      "Tailwind",
+      "",
+      "CSS",
+      "PostgreSQL",
+      "Stripe API"
+    ],
+    "category": "web",
+    "desc": "A production-ready e-commerce foundation built with modern technologies. This kit includes everything you need to launch a high-performance online store. It features a fully responsive design, integrated payment processing, a comprehensive admin dashboard, and optimized SEO out of the box.\r\n\r\nPerfect for developers looking to jumpstart their next commercial project or for businesses wanting a scalable, custom solution without the overhead of heavy platforms.\r\n\r\n",
+    "image": "/images/05208a51-b4ef-4765-b336-95e69195016e.png",
+    "zipFilename": "d08cdf25-d479-413e-9c7b-807aebbc15bf.zip"
+  }
+]

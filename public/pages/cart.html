@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html class="dark" lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Cart - ProjectMarket</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" rel="stylesheet"/>
+<script id="tailwind-config">
+    tailwind.config = { darkMode: "class", theme: { extend: { colors: { "primary": "#200df2", "background-light": "#f6f5f8", "background-dark": "#0a0a14" }, fontFamily: { "display": ["Inter"] } } } }
+</script>
+<link rel="stylesheet" href="/styles/main.css" />
+<!-- Razorpay script for payments -->
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 font-display transition-colors duration-300 flex flex-col min-h-screen">
+
+<!-- Injected Navbar -->
+<div id="navbar-container"></div>
+
+<!-- Cart Content -->
+<main class="flex-grow max-w-7xl mx-auto px-4 w-full py-16">
+  <h1 class="text-4xl md:text-5xl font-black mb-10">Your Cart</h1>
+  
+  <div class="grid grid-cols-1 lg:grid-cols-3 gap-12">
+    <!-- Cart Items -->
+    <div class="lg:col-span-2">
+      <div id="cartItemsContainer" class="space-y-6">
+        <!-- JS injected items -->
+      </div>
+    </div>
+    
+    <!-- Order Summary -->
+    <div class="bg-white dark:bg-slate-800/50 p-8 rounded-3xl border border-slate-200 dark:border-slate-800 h-fit">
+      <h2 class="text-2xl font-bold mb-6">Order Summary</h2>
+      
+      <div class="flex justify-between mb-4 text-slate-500 dark:text-slate-400">
+        <span>Subtotal</span>
+        <span id="subtotalAmount">₹0</span>
+      </div>
+      <div class="flex justify-between mb-6 text-slate-500 dark:text-slate-400">
+        <span>Taxes</span>
+        <span>₹0</span>
+      </div>
+      
+      <div class="border-t border-slate-200 dark:border-slate-700 pt-6 flex justify-between mb-8 items-center">
+        <span class="text-lg font-bold">Total</span>
+        <span class="text-3xl font-black text-primary" id="totalAmount">₹0</span>
+      </div>
+      
+      <button onclick="payNow()" id="checkoutBtn" class="w-full bg-primary text-white py-4 rounded-xl font-bold text-lg hover:-translate-y-1 transition-transform disabled:opacity-50 disabled:cursor-not-allowed">
+        Pay Now
+      </button>
+      <p class="text-center text-xs text-slate-500 mt-4"><span class="material-symbols-outlined text-[14px] align-middle">lock</span> Secured by Razorpay</p>
+    </div>
+  </div>
+</main>
+
+<!-- Injected Footer -->
+<div id="footer-container"></div>
+
+<script src="/scripts/theme.js"></script>
+<script src="/scripts/cart.js"></script>
+<script src="/scripts/main.js"></script>
+
+<script>
+// Logic specific to cart page
+function renderCart() {
+  const container = document.getElementById("cartItemsContainer");
+  const cart = getCart();
+  
+  if (cart.length === 0) {
+    container.innerHTML = `
+      <div class="text-center py-16 bg-white dark:bg-slate-800/30 rounded-3xl border border-dashed border-slate-300 dark:border-slate-700">
+        <span class="material-symbols-outlined text-6xl text-slate-300 dark:text-slate-600 mb-4">shopping_cart</span>
+        <h3 class="text-2xl font-bold mb-2">Your cart is empty</h3>
+        <p class="text-slate-500 mb-6">Looks like you haven't added any premium projects yet.</p>
+        <a href="index.html" class="inline-flex bg-primary text-white px-8 py-3 rounded-xl font-bold">Browse Projects</a>
+      </div>
+    `;
+    document.getElementById("subtotalAmount").innerText = "₹0";
+    document.getElementById("totalAmount").innerText = "₹0";
+    document.getElementById("checkoutBtn").disabled = true;
+    return;
+  }
+
+  let total = 0;
+  container.innerHTML = cart.map(item => {
+    total += item.price;
+    return `
+      <div class="flex items-center justify-between p-6 bg-white dark:bg-slate-800/50 rounded-2xl border border-slate-200 dark:border-slate-800">
+        <div>
+          <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-1">${item.name}</h3>
+          <p class="text-primary font-bold">Premium License</p>
+        </div>
+        <div class="flex items-center gap-6">
+          <span class="text-2xl font-black">₹${item.price}</span>
+          <button onclick="removeFromCart('${item.id}')" class="text-red-500 hover:text-red-600 bg-red-50 dark:bg-red-500/10 p-2 rounded-lg transition-colors">
+            <span class="material-symbols-outlined block text-[20px]">delete</span>
+          </button>
+        </div>
+      </div>
+    `;
+  }).join('');
+  
+  document.getElementById("subtotalAmount").innerText = `₹${total}`;
+  document.getElementById("totalAmount").innerText = `₹${total}`;
+  document.getElementById("checkoutBtn").disabled = false;
+  
+  // Store total globally for payNow
+  window.cartTotal = total;
+}
+
+function removeFromCart(id) {
+  let cart = getCart();
+  cart = cart.filter(item => item.id !== id);
+  saveCart(cart);
+  updateCartCount();
+  renderCart();
+}
+
+// Payment frontend function integrating with Express backend
+async function payNow() {
+  const user = JSON.parse(localStorage.getItem('user'));
+  if (!user) {
+    alert("Please login first to complete your purchase.");
+    window.location.href = "/pages/login.html";
+    return;
+  }
+
+  const items = getCart();
+  const amount = window.cartTotal;
+  if (!amount || amount <= 0) return;
+
+  const btn = document.getElementById("checkoutBtn");
+  btn.innerText = "Processing...";
+  btn.disabled = true;
+
+  try {
+    const res = await fetch("http://localhost:5000/api/create-order", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ amount, userId: user.id, items })
+    });
+    
+    const data = await res.json();
+    
+    if (!data.id) throw new Error("Could not create order");
+
+    const options = {
+      key: "rzp_test_SSnN1v2ozWo3Z6",
+      amount: data.amount,
+      currency: "INR",
+      name: "ProjectMarket",
+      description: "Premium Asset Purchase",
+      order_id: data.id,
+      handler: async function (response) {
+        btn.innerText = "Verifying Payment...";
+        try {
+            const verificationRes = await fetch("http://localhost:5000/api/verify-payment", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ 
+                    razorpay_payment_id: response.razorpay_payment_id,
+                    razorpay_order_id: response.razorpay_order_id,
+                    razorpay_signature: response.razorpay_signature,
+                    userId: user.id,
+                    items: items
+                })
+            });
+
+            const verifyData = await verificationRes.json();
+            if(verifyData.success) {
+                alert("Payment Successful! An email has been sent with your download link.");
+                const firstItem = items[0];
+                window.location.href = `/pages/order-success.html?projectId=${firstItem.id}`;
+            } else {
+                alert("Payment verification failed. Please contact support.");
+                btn.innerText = "Pay Now";
+                btn.disabled = false;
+            }
+        } catch (err) {
+            alert("Verification server error.");
+            btn.innerText = "Pay Now";
+            btn.disabled = false;
+        }
+      },
+      prefill: {
+        name: user.name,
+        email: user.email
+      },
+      theme: { color: "#200df2" }
+    };
+    
+    const rzp = new window.Razorpay(options);
+    rzp.open();
+    
+  } catch(e) {
+    console.error(e);
+    alert("Order creation failed.");
+    btn.innerText = "Pay Now";
+    btn.disabled = false;
+  }
+}
+
+// Initialize on load
+document.addEventListener("DOMContentLoaded", () => {
+  renderCart();
+});
+</script>
+</body>
+</html>

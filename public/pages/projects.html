@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html class="dark" lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>Browse Projects | ProjectMarket</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" rel="stylesheet"/>
+    <script id="tailwind-config">
+        tailwind.config = { darkMode: "class", theme: { extend: { colors: { "primary": "#200df2", "background-light": "#f6f5f8", "background-dark": "#111022" }, fontFamily: { "display": ["Inter"] }, borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"} } } }
+    </script>
+    <link rel="stylesheet" href="/styles/main.css" />
+    <style>
+        .scrollbar-hide::-webkit-scrollbar { display: none; }
+        .scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 min-h-screen font-display flex flex-col">
+    <!-- Global Header -->
+    <div id="navbar-container" class="sticky top-0 z-50 shadow-sm w-full"></div>
+
+    <div class="max-w-[1600px] w-full mx-auto px-6 py-8 flex gap-8 flex-grow">
+        <!-- Persistent Sidebar for Desktop -->
+        <aside class="hidden lg:block w-72 shrink-0 sticky top-24 self-start h-[calc(100vh-8rem)] overflow-y-auto pr-2 scrollbar-hide">
+            <div class="bg-white/60 dark:bg-slate-800/60 backdrop-blur-2xl border border-white/40 dark:border-slate-700/50 shadow-2xl p-6 rounded-3xl space-y-8 relative overflow-hidden">
+                <!-- Decorative Glow -->
+                <div class="absolute -top-10 -right-10 w-32 h-32 bg-primary/10 rounded-full blur-3xl pointer-events-none"></div>
+
+                <div class="space-y-3 relative z-10">
+                    <h3 class="text-[10px] font-black uppercase tracking-widest text-slate-400 dark:text-slate-500 mb-4 flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-primary/50"></span> Search</h3>
+                    <div class="relative flex items-center group">
+                        <span class="material-symbols-outlined absolute left-3.5 text-slate-400 text-lg group-focus-within:text-primary transition-colors">search</span>
+                        <input class="w-full pl-11 pr-4 py-3 rounded-2xl bg-white/80 dark:bg-slate-900/80 border border-slate-200/50 dark:border-slate-700/50 focus:border-primary/50 focus:ring-4 focus:ring-primary/10 outline-none transition-all placeholder:text-slate-400 text-sm shadow-sm" placeholder="Find projects..." type="text"/>
+                    </div>
+                </div>
+                
+                <div class="space-y-3 relative z-10">
+                    <h3 class="text-[10px] font-black uppercase tracking-widest text-slate-400 dark:text-slate-500 mb-4 flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-blue-500/50"></span> Categories</h3>
+                    <div class="flex flex-col gap-1.5" id="category-filters">
+                        <button data-filter="all" class="category-btn flex items-center gap-3 px-4 py-2.5 rounded-xl bg-primary text-white text-sm font-bold transition-all shadow-lg shadow-primary/20">
+                            <span class="material-symbols-outlined text-lg">grid_view</span> All Projects
+                        </button>
+                        <!-- Dynamic categories will be injected here -->
+                    </div>
+                </div>
+                
+                <div class="space-y-4 relative z-10">
+                    <h3 class="text-[10px] font-black uppercase tracking-widest text-slate-400 dark:text-slate-500 mb-4 flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-amber-500/50"></span> Filters</h3>
+                    <div class="space-y-2">
+                        <label class="text-xs font-bold text-slate-700 dark:text-slate-300">Price Range</label>
+                        <div class="relative">
+                            <select id="price-filter" class="w-full bg-white/80 dark:bg-slate-900/80 border border-slate-200/50 dark:border-slate-700/50 rounded-2xl pl-4 pr-10 py-3 text-sm font-medium focus:border-primary/50 focus:ring-4 focus:ring-primary/10 cursor-pointer appearance-none shadow-sm transition-all text-slate-700 dark:text-slate-200">
+                                <option value="all">All Prices</option><option value="0-50">₹0 - ₹50</option><option value="50-200">₹50 - ₹200</option><option value="200+">₹200+</option>
+                            </select>
+                            <span class="material-symbols-outlined absolute right-3.5 top-1/2 -translate-y-1/2 text-slate-400 pointer-events-none text-lg">expand_more</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </aside>
+
+        <main class="flex-1 min-w-0">
+            <div class="flex items-center justify-between mb-8">
+                <h2 class="text-2xl font-bold">Featured Projects <span class="ml-2 text-sm font-normal text-slate-400">Showing 124 results</span></h2>
+            </div>
+
+            <!-- Projects Grid -->
+            <section class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6" id="projects-grid">
+                <!-- Projects injected by JS -->
+            </section>
+        </main>
+    </div>
+
+    <!-- Global Footer -->
+    <div id="footer-container" class="w-full"></div>
+    <script src="/scripts/theme.js"></script>
+    <script src="/scripts/cart.js"></script>
+    <script src="/scripts/main.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', async () => {
+            try {
+                const res = await fetch('http://localhost:5000/api/projects');
+                const projects = await res.json();
+                
+                // Update result count
+                document.querySelector('h2 span').innerText = `Showing ${projects.length} results`;
+
+                const grid = document.getElementById('projects-grid');
+                const filterContainer = document.getElementById('category-filters');
+                const categories = new Set();
+                let html = '';
+
+                projects.forEach(p => {
+                    const cleanTitle = p.title.replace(/'/g, "\\'");
+                    if(p.category) categories.add(p.category);
+                    
+                    // Standardize image url processing
+                    let imgUrl = p.image;
+                    if(imgUrl.startsWith('url("')) {
+                        imgUrl = imgUrl.substring(5, imgUrl.length - 2);
+                    }
+                    
+                    const ratingStar = p.reviews ? p.reviews.split(' ')[0] : '5.0';
+
+                    html += `
+                        <div class="project-card flex flex-col group bg-white dark:bg-slate-800 rounded-2xl overflow-hidden border border-slate-200 dark:border-slate-700 hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 cursor-pointer h-full" data-category="${p.category || 'other'}" data-price="${p.price}" onclick="window.location.href='/pages/project-details.html?id=${p.id}'">
+                            <div class="relative aspect-[16/10] overflow-hidden bg-slate-100 dark:bg-slate-900 shrink-0">
+                                <img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" src="${imgUrl}" onerror="this.src='https://via.placeholder.com/800x500?text=Project+Preview'"/>
+                                <div class="absolute top-4 left-4 px-3 py-1 rounded-full bg-black/60 backdrop-blur-md text-white text-[10px] font-bold uppercase tracking-wider">${p.category || 'App'}</div>
+                            </div>
+                            <div class="p-6 flex flex-col h-full">
+                                <div class="flex justify-between items-start mb-3">
+                                    <h3 class="font-bold text-lg group-hover:text-primary transition-colors">${p.title}</h3>
+                                    <span class="text-primary font-extrabold text-xl">₹${p.price}</span>
+                                </div>
+                                <p class="text-sm text-slate-500 dark:text-slate-400 line-clamp-2 mb-6 leading-relaxed">${p.desc}</p>
+                                <div class="mt-auto pt-4 border-t border-slate-100 dark:border-slate-700">
+                                    <div class="flex items-center justify-between mb-3 w-full">
+                                        <div class="flex items-center gap-1.5">
+                                            <span class="material-symbols-outlined text-amber-500 text-[16px]">star</span>
+                                            <span class="text-xs font-bold text-slate-700 dark:text-slate-300 flex items-center mt-0.5">${ratingStar}</span>
+                                        </div>
+                                    </div>
+                                    <div class="grid grid-cols-2 gap-2 w-full">
+                                        <button class="w-full py-2.5 rounded-xl bg-slate-100 dark:bg-slate-700 text-slate-800 dark:text-slate-200 text-xs font-bold hover:bg-slate-200 dark:hover:bg-slate-600 transition-colors flex items-center justify-center gap-1.5" onclick="event.stopPropagation(); addToCart({id: '${p.id}', name: '${cleanTitle}', price: ${p.price}});">
+                                            <span class="material-symbols-outlined text-[16px]">add_shopping_cart</span> Cart
+                                        </button>
+                                        <button class="w-full py-2.5 rounded-xl bg-primary text-white text-xs font-bold hover:bg-primary/90 transition-colors flex items-center justify-center gap-1.5 shadow-md shadow-primary/20" onclick="event.stopPropagation(); buyNow({id: '${p.id}', name: '${cleanTitle}', price: ${p.price}});">
+                                            <span class="material-symbols-outlined text-[16px]">bolt</span> Buy Now
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                });
+                
+                grid.innerHTML = html || '<p class="col-span-full text-center text-slate-500 py-10">No projects found.</p>';
+
+                // Add dynamic category buttons
+                categories.forEach(cat => {
+                    const displayCat = cat.charAt(0).toUpperCase() + cat.slice(1);
+                    const btnHtml = `<button data-filter="${cat}" class="category-btn flex items-center gap-3 px-4 py-2.5 rounded-xl text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-900/50 text-sm font-bold transition-all group">
+                        <span class="material-symbols-outlined text-lg group-hover:text-primary transition-colors">category</span> ${displayCat}
+                    </button>`;
+                    filterContainer.insertAdjacentHTML('beforeend', btnHtml);
+                });
+
+                document.querySelectorAll('.category-btn').forEach(btn => {
+                    btn.addEventListener('click', function() {
+                        document.querySelectorAll('.category-btn').forEach(b => {
+                            b.classList.remove('bg-primary', 'text-white', 'shadow-lg', 'shadow-primary/20');
+                            b.classList.add('text-slate-600', 'dark:text-slate-400');
+                        });
+                        this.classList.add('bg-primary', 'text-white', 'shadow-lg', 'shadow-primary/20');
+                        this.classList.remove('text-slate-600', 'dark:text-slate-400');
+
+                        const filter = this.getAttribute('data-filter');
+                        applyFilters();
+                    });
+                });
+
+                document.getElementById('price-filter').addEventListener('change', applyFilters);
+
+                function applyFilters() {
+                    const activeCatBtn = document.querySelector('.category-btn.bg-primary');
+                    const catFilter = activeCatBtn ? activeCatBtn.getAttribute('data-filter') : 'all';
+                    const priceFilterValue = document.getElementById('price-filter').value;
+                    
+                    let activeCount = 0;
+                    document.querySelectorAll('.project-card').forEach(card => {
+                        const cardCat = card.getAttribute('data-category');
+                        const cardPrice = parseInt(card.getAttribute('data-price') || 0);
+                        
+                        let catMatch = (catFilter === 'all' || cardCat === catFilter);
+                        
+                        let priceMatch = true;
+                        if (priceFilterValue === '0-50') {
+                            priceMatch = cardPrice <= 50;
+                        } else if (priceFilterValue === '50-200') {
+                            priceMatch = cardPrice > 50 && cardPrice <= 200;
+                        } else if (priceFilterValue === '200+') {
+                            priceMatch = cardPrice > 200;
+                        }
+
+                        if (catMatch && priceMatch) {
+                            card.style.display = 'block';
+                            activeCount++;
+                        } else {
+                            card.style.display = 'none';
+                        }
+                    });
+                    
+                    document.querySelector('h2 span').innerText = `Showing ${activeCount} results`;
+                }
+
+            } catch (error) {
+                console.error("Error loading marketplace:", error);
+            }
+        });
+    </script>
+</body>
+</html>
