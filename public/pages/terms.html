@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html class="dark" lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>Terms of Service | ProjectMarket</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" rel="stylesheet"/>
+    <script id="tailwind-config">
+        tailwind.config = { darkMode: "class", theme: { extend: { colors: { "primary": "#200df2", "background-light": "#f6f5f8", "background-dark": "#111022", "neutral-dark": "#1b1834", "accent-text": "#9590cb" }, fontFamily: { "display": ["Inter", "sans-serif"] }, borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"} } } }
+    </script>
+    <link rel="stylesheet" href="/styles/main.css" />
+</head>
+<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 min-h-screen flex flex-col font-display antialiased">
+
+    <div id="navbar-container" class="sticky top-0 z-50 w-full transition-all duration-300"></div>
+
+    <main class="flex-grow py-20 px-4">
+        <div class="max-w-4xl mx-auto bg-white dark:bg-neutral-dark rounded-[2.5rem] p-8 md:p-16 border border-slate-200 dark:border-slate-800 shadow-2xl">
+            <h1 class="text-4xl md:text-5xl font-black mb-8 tracking-tighter">Terms of Service</h1>
+            <p class="text-slate-500 dark:text-accent-text mb-12 italic">Last updated: March 19, 2026</p>
+            
+            <div class="prose prose-slate dark:prose-invert max-w-none space-y-8">
+                <section>
+                    <h2 class="text-2xl font-bold mb-4 text-primary">1. Agreement to Terms</h2>
+                    <p class="text-slate-600 dark:text-slate-400 leading-relaxed">
+                        By accessing or using our services, you agree to be bound by these Terms of Service. If you do not agree to these terms, do not use our services.
+                    </p>
+                </section>
+
+                <section>
+                    <h2 class="text-2xl font-bold mb-4 text-primary">2. Use of Services</h2>
+                    <p class="text-slate-600 dark:text-slate-400 leading-relaxed">
+                        You may use our services only for lawful purposes and in accordance with these Terms. You are responsible for all activity that occurs under your account.
+                    </p>
+                </section>
+
+                <section>
+                    <h2 class="text-2xl font-bold mb-4 text-primary">3. Intellectual Property</h2>
+                    <p class="text-slate-600 dark:text-slate-400 leading-relaxed">
+                        The content on our marketplace, including projects, code, and assets, is protected by intellectual property laws. You agree not to reproduce, distribute, or create derivative works without authorization.
+                    </p>
+                </section>
+
+                <section>
+                    <h2 class="text-2xl font-bold mb-4 text-primary">4. Limitation of Liability</h2>
+                    <p class="text-slate-600 dark:text-slate-400 leading-relaxed">
+                        In no event shall ProjectMarket be liable for any indirect, incidental, special, consequential, or punitive damages arising out of or in connection with your use of the services.
+                    </p>
+                </section>
+            </div>
+        </div>
+    </main>
+
+    <div id="footer-container"></div>
+
+    <script src="/scripts/theme.js"></script>
+    <script src="/scripts/cart.js"></script>
+    <script src="/scripts/main.js"></script>
+</body>
+</html>
