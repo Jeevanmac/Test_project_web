@@ -1,11 +1,16 @@
 // Cart Logic
 
+function getCartKey() {
+  const user = JSON.parse(localStorage.getItem("user"));
+  return user ? `projectMarketCart_${user.id}` : "projectMarketCart_guest";
+}
+
 function getCart() {
-  return JSON.parse(localStorage.getItem("cart")) || [];
+  return JSON.parse(localStorage.getItem(getCartKey())) || [];
 }
 
 function saveCart(cart) {
-  localStorage.setItem("cart", JSON.stringify(cart));
+  localStorage.setItem(getCartKey(), JSON.stringify(cart));
 }
 
 function addToCart(project) {
@@ -34,7 +39,7 @@ function updateCartCount() {
 }
 
 function clearCart() {
-  localStorage.removeItem("cart");
+  localStorage.removeItem(getCartKey());
   updateCartCount();
 }
 

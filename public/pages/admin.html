@@ -30,18 +30,18 @@
                 </div>
             </div>
             <nav class="flex-1 p-4 space-y-1">
-                <a class="flex items-center gap-3 px-4 py-3 rounded-lg active-sidebar-item transition-colors" href="/pages/admin.html">
+                <button onclick="switchAdminTab('overview')" id="nav-btn-overview" class="w-full flex items-center gap-3 px-4 py-3 rounded-lg active-sidebar-item transition-all shadow-sm">
                     <span class="material-symbols-outlined">dashboard</span> <span class="font-semibold text-sm">Overview</span>
-                </a>
-                <a class="flex items-center gap-3 px-4 py-3 rounded-lg text-slate-500 dark:text-accent-text hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors cursor-pointer">
+                </button>
+                <button onclick="switchAdminTab('projects')" id="nav-btn-projects" class="w-full flex items-center gap-3 px-4 py-3 rounded-lg text-slate-500 dark:text-accent-text hover:bg-slate-100 dark:hover:bg-slate-800 transition-all cursor-pointer">
                     <span class="material-symbols-outlined">inventory_2</span> <span class="font-semibold text-sm">Manage Projects</span>
-                </a>
-                <a class="flex items-center gap-3 px-4 py-3 rounded-lg text-slate-500 dark:text-accent-text hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors cursor-pointer">
+                </button>
+                <button onclick="switchAdminTab('users')" id="nav-btn-users" class="w-full flex items-center gap-3 px-4 py-3 rounded-lg text-slate-500 dark:text-accent-text hover:bg-slate-100 dark:hover:bg-slate-800 transition-all cursor-pointer">
                     <span class="material-symbols-outlined">group</span> <span class="font-semibold text-sm">Users & Roles</span>
-                </a>
-                <a class="flex items-center gap-3 px-4 py-3 rounded-lg text-slate-500 dark:text-accent-text hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors cursor-pointer">
+                </button>
+                <button class="w-full flex items-center gap-3 px-4 py-3 rounded-lg text-slate-500 dark:text-accent-text hover:bg-slate-100 dark:hover:bg-slate-800 transition-all cursor-pointer opacity-50 cursor-not-allowed">
                     <span class="material-symbols-outlined">settings</span> <span class="font-semibold text-sm">Platform Settings</span>
-                </a>
+                </button>
             </nav>
             <div class="p-4 border-t border-slate-200 dark:border-slate-800">
                 <a href="/pages/profile.html" class="flex items-center gap-3 p-2 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-xl transition-colors cursor-pointer group">
@@ -76,108 +76,107 @@
                     <p class="text-slate-500 dark:text-accent-text">Real-time overview of marketplace performance and active sales.</p>
                 </div>
 
-                <!-- Stats Grid -->
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                    <div class="bg-white dark:bg-slate-800/50 p-6 rounded-2xl border border-slate-200 dark:border-slate-700 shadow-sm relative overflow-hidden">
-                        <div class="absolute right-0 top-0 w-24 h-24 bg-primary/5 rounded-bl-[100px]-none blur-xl"></div>
-                        <p class="text-sm font-semibold text-slate-500 mb-1">Total Revenue</p>
-                        <div class="flex justify-between items-end">
-                            <h4 class="text-3xl font-black">₹124,500</h4>
-                            <span class="flex items-center text-green-500 bg-green-500/10 px-2.5 py-1 rounded-md text-xs font-bold gap-1 mt-2">
-                                <span class="material-symbols-outlined text-[14px]">trending_up</span> +24% THIS MONTH
-                            </span>
+                <!-- Tabs Section -->
+                <div id="section-overview" class="admin-section space-y-8">
+                    <!-- Stats Grid Moved Here -->
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                        <div class="bg-white dark:bg-slate-800/50 p-6 rounded-2xl border border-slate-200 dark:border-slate-700 shadow-sm relative overflow-hidden">
+                            <div class="absolute right-0 top-0 w-24 h-24 bg-primary/5 rounded-bl-[100px]-none blur-xl"></div>
+                            <p class="text-sm font-semibold text-slate-500 mb-1">Total Revenue</p>
+                            <div class="flex justify-between items-end">
+                                <h4 class="text-3xl font-black">₹124,500</h4>
+                                <span class="flex items-center text-green-500 bg-green-500/10 px-2.5 py-1 rounded-md text-xs font-bold gap-1 mt-2">
+                                    <span class="material-symbols-outlined text-[14px]">trending_up</span> +24% THIS MONTH
+                                </span>
+                            </div>
                         </div>
-                    </div>
-                    <div class="bg-white dark:bg-slate-800/50 p-6 rounded-2xl border border-slate-200 dark:border-slate-700 shadow-sm relative overflow-hidden">
-                        <div class="absolute right-0 top-0 w-24 h-24 bg-blue-500/5 rounded-bl-[100px]-none blur-xl"></div>
-                        <p class="text-sm font-semibold text-slate-500 mb-1">Total Product Orders</p>
-                        <div class="flex justify-between items-end">
-                            <h4 class="text-3xl font-black">384</h4>
-                            <span class="flex items-center text-blue-500 bg-blue-500/10 px-2.5 py-1 rounded-md text-xs font-bold gap-1 mt-2">
-                                <span class="material-symbols-outlined text-[14px]">shopping_cart</span> +12 NEW
-                            </span>
-                        </div>
-                    </div>
-                    <div class="bg-white dark:bg-slate-800/50 p-6 rounded-2xl border border-slate-200 dark:border-slate-700 shadow-sm relative overflow-hidden">
-                        <div class="absolute right-0 top-0 w-24 h-24 bg-purple-500/5 rounded-bl-[100px]-none blur-xl"></div>
-                        <p class="text-sm font-semibold text-slate-500 mb-1">Active Platform Users</p>
-                        <div class="flex justify-between items-end">
-                            <h4 class="text-3xl font-black">1,205</h4>
-                            <span class="flex items-center text-purple-500 bg-purple-500/10 px-2.5 py-1 rounded-md text-xs font-bold gap-1 mt-2">
-                                <span class="material-symbols-outlined text-[14px]">group</span> +42 THIS WEEK
-                            </span>
-                        </div>
+                        <!-- More metrics can be added -->
                     </div>
                 </div>
 
-                <!-- Upload Section -->
-                <div class="bg-white dark:bg-slate-800 rounded-3xl p-8 border border-slate-200 dark:border-slate-700 shadow-2xl relative overflow-hidden">
-                    <div class="absolute top-0 w-full h-1 bg-gradient-to-r from-primary via-purple-500 to-primary left-0"></div>
-                    <h2 class="text-2xl font-bold mb-8 flex items-center gap-3">
-                        <span class="material-symbols-outlined text-primary text-3xl">add_circle</span> Add New Marketplace Item
-                    </h2>
-                    
-                    <form id="uploadForm" class="space-y-6">
-                        <!-- Basic Info -->
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                            <div>
-                                <label class="block text-sm font-bold text-slate-700 dark:text-slate-300 mb-2">Project Title</label>
-                                <input type="text" id="title" required class="w-full bg-slate-50 dark:bg-slate-900 border-none ring-1 ring-slate-200 dark:ring-slate-700 rounded-xl px-4 py-3.5 focus:ring-2 focus:ring-primary outline-none transition-all placeholder:text-slate-400">
+                <!-- Projects Tab (Upload Form) -->
+                <div id="section-projects" class="admin-section hidden space-y-8">
+                    <div class="bg-white dark:bg-slate-800 rounded-3xl p-8 border border-slate-200 dark:border-slate-700 shadow-2xl relative overflow-hidden">
+                        <div class="absolute top-0 w-full h-1 bg-gradient-to-r from-primary via-purple-500 to-primary left-0"></div>
+                        <h2 class="text-2xl font-bold mb-8 flex items-center gap-3">
+                            <span class="material-symbols-outlined text-primary text-3xl">add_circle</span> Add New Marketplace Item
+                        </h2>
+                        <form id="uploadForm" class="space-y-6">
+                            <!-- ... Form Fields ... -->
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                <div>
+                                    <label class="block text-sm font-bold text-slate-700 dark:text-slate-300 mb-2">Project Title</label>
+                                    <input type="text" id="title" required class="w-full bg-slate-50 dark:bg-slate-900 border-none ring-1 ring-slate-200 dark:ring-slate-700 rounded-xl px-4 py-3.5 focus:ring-2 focus:ring-primary outline-none transition-all placeholder:text-slate-400">
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-bold text-slate-700 dark:text-slate-300 mb-2">Category</label>
+                                    <select id="category" class="w-full bg-slate-50 dark:bg-slate-900 border-none ring-1 ring-slate-200 dark:ring-slate-700 rounded-xl px-4 py-3.5 focus:ring-2 focus:ring-primary outline-none transition-all cursor-pointer">
+                                        <option value="web">Web App</option>
+                                        <option value="mobile">Mobile</option>
+                                        <option value="ecommerce">E-commerce</option>
+                                        <option value="saas">SaaS</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <!-- ... Rest of form ... -->
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                <div>
+                                    <label class="block text-sm font-bold text-slate-700 dark:text-slate-300 mb-2">Selling Price (₹)</label>
+                                    <input type="number" id="price" required class="w-full bg-slate-50 dark:bg-slate-900 border-none ring-1 ring-slate-200 dark:ring-slate-700 rounded-xl px-4 py-3.5 focus:ring-2 focus:ring-primary outline-none transition-all">
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-bold text-slate-700 dark:text-slate-300 mb-2">Old Price (₹)</label>
+                                    <input type="number" id="oldPrice" class="w-full bg-slate-50 dark:bg-slate-900 border-none ring-1 ring-slate-200 dark:ring-slate-700 rounded-xl px-4 py-3.5 focus:ring-2 focus:ring-primary outline-none transition-all">
+                                </div>
                             </div>
                             <div>
-                                <label class="block text-sm font-bold text-slate-700 dark:text-slate-300 mb-2">Category</label>
-                                <select id="category" class="w-full bg-slate-50 dark:bg-slate-900 border-none ring-1 ring-slate-200 dark:ring-slate-700 rounded-xl px-4 py-3.5 focus:ring-2 focus:ring-primary outline-none transition-all cursor-pointer">
-                                    <option value="web">Web App</option>
-                                    <option value="mobile">Mobile</option>
-                                    <option value="ecommerce">E-commerce</option>
-                                    <option value="saas">SaaS</option>
-                                    <option value="other">Other</option>
-                                </select>
+                                <label class="block text-sm font-bold text-slate-700 dark:text-slate-300 mb-2">Tech Stack</label>
+                                <input type="text" id="tech" class="w-full bg-slate-50 dark:bg-slate-900 border-none ring-1 ring-slate-200 dark:ring-slate-700 rounded-xl px-4 py-3.5 focus:ring-2 focus:ring-primary outline-none transition-all">
                             </div>
-                        </div>
+                            <div>
+                                <label class="block text-sm font-bold text-slate-700 dark:text-slate-300 mb-2">Description</label>
+                                <textarea id="desc" rows="4" required class="w-full bg-slate-50 dark:bg-slate-900 border-none ring-1 ring-slate-200 dark:ring-slate-700 rounded-xl px-4 py-3.5 focus:ring-2 focus:ring-primary outline-none transition-all"></textarea>
+                            </div>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 bg-slate-50 dark:bg-slate-900/50 p-6 rounded-2xl border border-slate-200 dark:border-slate-700 border-dashed">
+                                <div>
+                                    <label class="block text-sm font-bold text-slate-700 dark:text-slate-300 mb-2">Cover Image</label>
+                                    <input type="file" id="imageFile" accept="image/*" class="w-full text-sm text-slate-500">
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-bold text-slate-700 dark:text-slate-300 mb-2">ZIP File</label>
+                                    <input type="file" id="zipFile" accept=".zip" required class="w-full text-sm text-slate-500">
+                                </div>
+                            </div>
+                            <div id="statusMessage" class="hidden text-sm font-bold p-4 rounded-xl mt-4"></div>
+                            <button type="submit" id="submitBtn" class="w-full bg-primary text-white font-bold text-lg py-5 rounded-xl hover:bg-primary/90 transition-all shadow-lg shadow-primary/20">
+                                Publish Project
+                            </button>
+                        </form>
+                    </div>
+                </div>
 
-                        <!-- Pricing -->
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                            <div>
-                                <label class="block text-sm font-bold text-slate-700 dark:text-slate-300 mb-2">Selling Price (₹)</label>
-                                <input type="number" id="price" required class="w-full bg-slate-50 dark:bg-slate-900 border-none ring-1 ring-slate-200 dark:ring-slate-700 rounded-xl px-4 py-3.5 focus:ring-2 focus:ring-primary outline-none transition-all">
-                            </div>
-                            <div>
-                                <label class="block text-sm font-bold text-slate-700 dark:text-slate-300 mb-2">Original Price (₹) <span class="text-xs text-slate-400 font-normal">(Optional cross-out)</span></label>
-                                <input type="number" id="oldPrice" class="w-full bg-slate-50 dark:bg-slate-900 border-none ring-1 ring-slate-200 dark:ring-slate-700 rounded-xl px-4 py-3.5 focus:ring-2 focus:ring-primary outline-none transition-all">
-                            </div>
+                <!-- Users Tab -->
+                <div id="section-users" class="admin-section hidden space-y-8">
+                    <div class="bg-white dark:bg-slate-800 rounded-3xl p-8 border border-slate-200 dark:border-slate-700 shadow-xl">
+                        <h2 class="text-2xl font-bold mb-6 flex items-center gap-3">
+                            <span class="material-symbols-outlined text-primary">group</span> Platform Users
+                        </h2>
+                        <div class="overflow-x-auto">
+                            <table class="w-full text-left">
+                                <thead class="border-b border-slate-200 dark:border-slate-700">
+                                    <tr>
+                                        <th class="px-6 py-4 text-xs font-bold text-slate-500 uppercase">User</th>
+                                        <th class="px-6 py-4 text-xs font-bold text-slate-500 uppercase">Email</th>
+                                        <th class="px-6 py-4 text-xs font-bold text-slate-500 uppercase">Role</th>
+                                        <th class="px-6 py-4 text-xs font-bold text-slate-500 uppercase">ID</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="users-table-body" class="divide-y divide-slate-100 dark:divide-slate-700">
+                                    <!-- Dynamic content -->
+                                </tbody>
+                            </table>
                         </div>
-
-                        <!-- Description & Tech -->
-                        <div>
-                            <label class="block text-sm font-bold text-slate-700 dark:text-slate-300 mb-2">Tech Stack <span class="text-xs text-slate-400 font-normal">(Comma separated, e.g. React, Node.js)</span></label>
-                            <input type="text" id="tech" class="w-full bg-slate-50 dark:bg-slate-900 border-none ring-1 ring-slate-200 dark:ring-slate-700 rounded-xl px-4 py-3.5 focus:ring-2 focus:ring-primary outline-none transition-all">
-                        </div>
-                        
-                        <div>
-                            <label class="block text-sm font-bold text-slate-700 dark:text-slate-300 mb-2">Description</label>
-                            <textarea id="desc" rows="4" required class="w-full bg-slate-50 dark:bg-slate-900 border-none ring-1 ring-slate-200 dark:ring-slate-700 rounded-xl px-4 py-3.5 focus:ring-2 focus:ring-primary outline-none transition-all"></textarea>
-                        </div>
-
-                        <!-- Files -->
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 bg-slate-50 dark:bg-slate-900/50 p-6 rounded-2xl border border-slate-200 dark:border-slate-700 border-dashed">
-                            <div>
-                                <label class="block text-sm font-bold text-slate-700 dark:text-slate-300 mb-2">Cover Image</label>
-                                <input type="file" id="imageFile" accept="image/*" class="w-full text-sm text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-primary/10 file:text-primary hover:file:bg-primary/20 transition-all cursor-pointer">
-                            </div>
-                            <div>
-                                <label class="block text-sm font-bold text-slate-700 dark:text-slate-300 mb-2">Deliverable ZIP File</label>
-                                <input type="file" id="zipFile" accept=".zip" required class="w-full text-sm text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-primary/10 file:text-primary hover:file:bg-primary/20 transition-all cursor-pointer">
-                            </div>
-                        </div>
-
-                        <div id="statusMessage" class="hidden text-sm font-bold p-4 rounded-xl mt-4"></div>
-
-                        <button type="submit" id="submitBtn" class="w-full bg-primary text-white font-bold text-lg py-5 rounded-xl hover:bg-primary/90 transition-all shadow-lg shadow-primary/20 flex flex-col items-center justify-center gap-1 group overflow-hidden relative">
-                            <span class="absolute w-0 h-full bg-white/20 -skew-x-[45deg] group-hover:w-[150%] transition-all duration-700 ease-out left-[-20%]"></span>
-                            <div class="flex items-center gap-2"><span class="material-symbols-outlined">cloud_upload</span> <span>Publish Item to Store</span></div>
-                        </button>
-                    </form>
+                    </div>
                 </div>
             </div>
             
@@ -203,6 +202,60 @@
             // Sync User Name globally to UI elements
             document.querySelectorAll('.profile-name').forEach(el => el.textContent = user.name || 'Admin');
             
+            // Tab switching logic
+            window.switchAdminTab = function(tabId) {
+                // Hide all sections
+                document.querySelectorAll('.admin-section').forEach(s => s.classList.add('hidden'));
+                // Show target
+                document.getElementById(`section-${tabId}`).classList.remove('hidden');
+                
+                // Update buttons
+                document.querySelectorAll('nav button').forEach(b => {
+                    b.classList.remove('active-sidebar-item', 'text-white', 'bg-primary');
+                    b.classList.add('text-slate-500', 'dark:text-accent-text');
+                });
+                
+                const activeBtn = document.getElementById(`nav-btn-${tabId}`);
+                if (activeBtn) {
+                    activeBtn.classList.add('active-sidebar-item', 'text-white', 'bg-primary');
+                    activeBtn.classList.remove('text-slate-500', 'dark:text-accent-text');
+                }
+
+                if (tabId === 'users') fetchUsers();
+            };
+
+            async function fetchUsers() {
+                const tbody = document.getElementById('users-table-body');
+                tbody.innerHTML = '<tr><td colspan="4" class="px-6 py-10 text-center text-slate-400">Loading user directory...</td></tr>';
+                
+                try {
+                    const res = await fetch('http://localhost:5000/api/admin/users');
+                    const users = await res.json();
+                    
+                    tbody.innerHTML = users.map(u => `
+                        <tr class="hover:bg-slate-50 dark:hover:bg-primary/5 transition-colors">
+                            <td class="px-6 py-4">
+                                <div class="flex items-center gap-3">
+                                    <div class="w-8 h-8 rounded-full bg-slate-200 dark:bg-slate-700 flex items-center justify-center text-xs font-bold text-slate-500">
+                                        ${u.name.charAt(0)}
+                                    </div>
+                                    <span class="font-bold text-slate-900 dark:text-white">${u.name}</span>
+                                </div>
+                            </td>
+                            <td class="px-6 py-4 text-slate-500 dark:text-slate-400 text-sm">${u.email}</td>
+                            <td class="px-6 py-4">
+                                <span class="px-2 py-1 rounded text-[10px] font-black uppercase ${u.email === 'admin@projectmarket.com' ? 'bg-primary text-white' : 'bg-green-500/10 text-green-500'}">
+                                    ${u.email === 'admin@projectmarket.com' ? 'Admin' : 'Customer'}
+                                </span>
+                            </td>
+                            <td class="px-6 py-4 text-slate-400 font-mono text-xs">${u.id}</td>
+                        </tr>
+                    `).join('');
+                } catch (e) {
+                    tbody.innerHTML = '<tr><td colspan="4" class="px-6 py-10 text-center text-red-500">Failed to load users</td></tr>';
+                }
+            }
+
             document.getElementById('uploadForm').addEventListener('submit', async (e) => {
                 e.preventDefault();
                 const submitBtn = document.getElementById('submitBtn');

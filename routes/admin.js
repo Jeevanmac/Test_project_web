@@ -77,4 +77,22 @@ router.post('/project', upload.fields([{ name: 'imageFile', maxCount: 1 }, { nam
   }
 });
 
+const usersFile = path.join(__dirname, '../data/users.json');
+
+router.get('/users', (req, res) => {
+    try {
+        if (fs.existsSync(usersFile)) {
+            const users = JSON.parse(fs.readFileSync(usersFile, 'utf-8'));
+            // Remove sensitive data
+            const safeUsers = users.map(({ password, ...u }) => u);
+            res.json(safeUsers);
+        } else {
+            res.json([]);
+        }
+    } catch (e) {
+        console.error("Error fetching users:", e);
+        res.status(500).json({ error: "Failed to fetch users" });
+    }
+});
+
 module.exports = router;
