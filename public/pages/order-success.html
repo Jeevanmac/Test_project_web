@@ -104,7 +104,7 @@
 
         async function triggerDownload() {
             if (projectId) {
-                window.location.href = `http://localhost:5000/api/download?token=valid_token&projectId=${projectId}`;
+                window.location.href = `/api/download?token=valid_token&projectId=${projectId}`;
             } else {
                 window.location.href = '/pages/dashboard.html';
             }

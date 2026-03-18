@@ -116,7 +116,7 @@
             }
 
             try {
-                const res = await fetch(`http://localhost:5000/api/projects/${id}`);
+                const res = await fetch(`/api/projects/${id}`);
                 const p = await res.json();
                 
                 if (p.error) {

@@ -187,7 +187,7 @@
                     if(zipFile) formData.append('zipFile', zipFile);
 
                     try {
-                        const response = await fetch('http://localhost:5000/api/admin/project', { method: 'POST', body: formData });
+                        const response = await fetch('/api/admin/project', { method: 'POST', body: formData });
                         const data = await response.json();
                         if (data.success) {
                             statusMsg.className = 'text-sm font-bold p-4 rounded-xl bg-green-500/10 text-green-500 block mt-4';

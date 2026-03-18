@@ -199,7 +199,7 @@
             document.querySelectorAll('.profile-name').forEach(el => el.textContent = user.name);
 
             try {
-                const res = await fetch(`http://localhost:5000/api/user-orders/${user.id}`);
+                const res = await fetch(`/api/user-orders/${user.id}`);
                 const orders = await res.json();
                 const container = document.getElementById('purchased-projects-container');
                 const ordersContainer = document.getElementById('recent-orders-container');
@@ -305,7 +305,7 @@
         }
 
         async function downloadProject(projectId) {
-            window.location.href = `http://localhost:5000/api/download?token=valid_token&projectId=${projectId}`;
+            window.location.href = `/api/download?token=valid_token&projectId=${projectId}`;
         }
         
         function switchTab(tabId) {

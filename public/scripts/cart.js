@@ -61,7 +61,7 @@ async function buyNow(project) {
   }
 
   try {
-    const res = await fetch("http://localhost:5000/api/create-order", {
+    const res = await fetch("/api/create-order", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ amount: project.price, userId: user.id, items: [project] })
@@ -79,7 +79,7 @@ async function buyNow(project) {
       order_id: order.id,
       handler: async function (response) {
         try {
-            const verificationRes = await fetch("http://localhost:5000/api/verify-payment", {
+            const verificationRes = await fetch("/api/verify-payment", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ 

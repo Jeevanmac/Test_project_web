@@ -229,8 +229,11 @@
                 tbody.innerHTML = '<tr><td colspan="4" class="px-6 py-10 text-center text-slate-400">Loading user directory...</td></tr>';
                 
                 try {
-                    const res = await fetch('http://localhost:5000/api/admin/users');
+                    console.log("Fetching users directory...");
+                    const res = await fetch('/api/admin/users');
+                    if (!res.ok) throw new Error(`HTTP Error: ${res.status}`);
                     const users = await res.json();
+                    console.log("Successfully loaded users:", users.length);
                     
                     tbody.innerHTML = users.map(u => `
                         <tr class="hover:bg-slate-50 dark:hover:bg-primary/5 transition-colors">
@@ -252,7 +255,8 @@
                         </tr>
                     `).join('');
                 } catch (e) {
-                    tbody.innerHTML = '<tr><td colspan="4" class="px-6 py-10 text-center text-red-500">Failed to load users</td></tr>';
+                    console.error("User Directory Fetch Failed:", e);
+                    tbody.innerHTML = `<tr><td colspan="4" class="px-6 py-10 text-center text-red-500">Failed to load users: ${e.message}</td></tr>`;
                 }
             }
 
@@ -280,7 +284,7 @@
                 if(zipFile) formData.append('zipFile', zipFile);
 
                 try {
-                    const response = await fetch('http://localhost:5000/api/admin/project', {
+                    const response = await fetch('/api/admin/project', {
                         method: 'POST',
                         body: formData
                     });
